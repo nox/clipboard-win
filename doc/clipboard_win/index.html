@@ -45,13 +45,22 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-0' class='srclink' href='../src/clipboard_win/lib.rs.html#1-82' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-0' class='srclink' href='../src/clipboard_win/lib.rs.html#1-116' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Clipboard WIN API</p>
 
 <p>This crate provide simple means to operate with Windows clipboard.</p>
 
-<p>To use:
-<code>extern crate clipboard_win;</code></p>
+<h1 id="example:" class='section-header'><a
+                           href="#example:">Example:</a></h1><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>clipboard_win</span>::<span class='op'>*</span>;
+
+<span class='kw'>use</span> <span class='ident'>clipboard_win</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;I set some clipboard text like a boss!&quot;</span>);
+    <span class='ident'>set_clipboard</span>(<span class='string'>&quot;for my waifu!&quot;</span>);
+}
+</pre>
 </div><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
 <table>
                     <tr class=' module-item'>

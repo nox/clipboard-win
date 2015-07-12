@@ -45,8 +45,15 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-24' class='srclink' href='../src/clipboard_win/lib.rs.html#28-53' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>pub fn set_clipboard&lt;T: ?<a class='trait' href='http://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html' title='core::convert::AsRef'>AsRef</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/std/ffi/os_str/struct.OsStr.html' title='std::ffi::os_str::OsStr'>OsStr</a>&gt;&gt;(text: &amp;T)</pre><div class='docblock'><p>Set clipboard with text.</p>
+        </span><a id='src-25' class='srclink' href='../src/clipboard_win/lib.rs.html#40-74' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>pub fn set_clipboard&lt;T: ?<a class='trait' href='http://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html' title='core::convert::AsRef'>AsRef</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/std/ffi/os_str/struct.OsStr.html' title='std::ffi::os_str::OsStr'>OsStr</a>&gt;&gt;(text: &amp;T) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</pre><div class='docblock'><p>Set clipboard with text.</p>
+
+<p>Return result:</p>
+
+<ul>
+<li><code>Ok</code> Upon succesful set of text.</li>
+<li><code>Err</code> Otherwise. See <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms681381%28v=vs.85%29.aspx">Error codes</a></li>
+</ul>
 </div></section>
     <section id='search' class="content hidden"></section>
 
