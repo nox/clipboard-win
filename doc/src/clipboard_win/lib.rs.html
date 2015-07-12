@@ -156,6 +156,8 @@
 <span id="114">114</span>
 <span id="115">115</span>
 <span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Clipboard WIN API</span>
 <span class='doccomment'>//!</span>
@@ -163,13 +165,13 @@
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! # Example:</span>
 <span class='doccomment'>//! ```</span>
-<span class='doccomment'>//! extern crate clipboard_win::*;</span>
+<span class='doccomment'>//! extern crate clipboard_win;</span>
 <span class='doccomment'>//!</span>
-<span class='doccomment'>//! use clipboard_win;</span>
+<span class='doccomment'>//! use clipboard_win::*;</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! fn main() {</span>
 <span class='doccomment'>//!     println!(&quot;I set some clipboard text like a boss!&quot;);</span>
-<span class='doccomment'>//!     set_clipboard(&quot;for my waifu!&quot;);</span>
+<span class='doccomment'>//!     set_clipboard(&quot;for my waifu!&quot;).unwrap();</span>
 <span class='doccomment'>//! }</span>
 <span class='doccomment'>//! ```</span>
 
@@ -210,6 +212,7 @@
         <span class='kw'>let</span> <span class='ident'>len</span>: <span class='ident'>usize</span> <span class='op'>=</span> (<span class='ident'>utf16_buff</span>.<span class='ident'>len</span>()<span class='op'>+</span><span class='number'>1</span>) <span class='op'>*</span> <span class='number'>2</span>;
         <span class='kw'>let</span> <span class='ident'>handler</span>: <span class='ident'>HGLOBAL</span> <span class='op'>=</span> <span class='ident'>GlobalAlloc</span>(<span class='ident'>ghnd</span>, <span class='ident'>len</span> <span class='kw'>as</span> <span class='ident'>SIZE_T</span>);
         <span class='kw'>if</span> <span class='ident'>handler</span>.<span class='ident'>is_null</span>() {
+            <span class='ident'>CloseClipboard</span>();
             <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>GetLastError</span>());
         }
         <span class='kw'>else</span> {
@@ -253,6 +256,7 @@
     <span class='kw'>let</span> <span class='ident'>result</span>: <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span>;
     <span class='kw'>unsafe</span> {
         <span class='kw'>if</span> <span class='ident'>OpenClipboard</span>(<span class='ident'>std</span>::<span class='ident'>ptr</span>::<span class='ident'>null_mut</span>()) <span class='op'>==</span> <span class='number'>0</span> {
+            <span class='comment'>//Leave earlier as clipboard is closed at the end</span>
             <span class='ident'>result</span> <span class='op'>=</span> <span class='prelude-val'>Err</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;Unable to open clipboard. Errno:{}&quot;</span>, <span class='ident'>GetLastError</span>()));
         }
         <span class='kw'>else</span> {
@@ -267,8 +271,8 @@
 
                 <span class='ident'>result</span> <span class='op'>=</span> <span class='ident'>String</span>::<span class='ident'>from_utf16</span>(<span class='ident'>text_s</span>).<span class='ident'>map_err</span>(<span class='op'>|</span> <span class='ident'>err</span> <span class='op'>|</span> <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;Failed to parse clipboard&#39;s text. Errno:{:?}&quot;</span>, <span class='ident'>err</span>));
                 <span class='ident'>GlobalUnlock</span>(<span class='ident'>text_handler</span>);
-                <span class='ident'>CloseClipboard</span>();
             }
+            <span class='ident'>CloseClipboard</span>();
         }
     }
     <span class='ident'>result</span>
