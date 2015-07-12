@@ -122,7 +122,6 @@
 <span id="80">80</span>
 <span id="81">81</span>
 <span id="82">82</span>
-<span id="83">83</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Clipboard WIN API</span>
 <span class='doccomment'>//!</span>
@@ -136,13 +135,10 @@
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>winapi</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>user32</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>kernel32</span>;
-<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>num</span>;
 
 <span class='comment'>//rust</span>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>os</span>::<span class='ident'>windows</span>::<span class='ident'>ffi</span>::<span class='ident'>OsStrExt</span>;
 
-<span class='comment'>//num</span>
-<span class='kw'>use</span> <span class='ident'>num</span>::<span class='ident'>zero</span>;
 <span class='comment'>//WINAPI</span>
 <span class='comment'>//types</span>
 <span class='kw'>use</span> <span class='ident'>winapi</span>::<span class='ident'>minwindef</span>::{<span class='ident'>HGLOBAL</span>, <span class='ident'>UINT</span>};
@@ -156,7 +152,7 @@
 <span class='doccomment'>///Set clipboard with text.</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_clipboard</span><span class='op'>&lt;</span><span class='ident'>T</span>: ?<span class='ident'>Sized</span> <span class='op'>+</span> <span class='ident'>AsRef</span><span class='op'>&lt;</span><span class='ident'>std</span>::<span class='ident'>ffi</span>::<span class='ident'>OsStr</span><span class='op'>&gt;&gt;</span>(<span class='ident'>text</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>) {
     <span class='kw'>let</span> <span class='ident'>format</span>: <span class='ident'>UINT</span> <span class='op'>=</span> <span class='number'>13</span>; <span class='comment'>//unicode</span>
-    <span class='kw'>let</span> <span class='ident'>ghnd</span>: <span class='ident'>UINT</span> <span class='op'>=</span> <span class='number'>0x0042</span>;
+    <span class='kw'>let</span> <span class='ident'>ghnd</span>: <span class='ident'>UINT</span> <span class='op'>=</span> <span class='number'>66</span>;
     <span class='kw'>let</span> <span class='ident'>text</span> <span class='op'>=</span> <span class='ident'>text</span>.<span class='ident'>as_ref</span>();
     <span class='kw'>unsafe</span> {
         <span class='comment'>//allocate buffer and copy string to it.</span>
@@ -165,15 +161,17 @@
         <span class='kw'>let</span> <span class='ident'>handler</span>: <span class='ident'>HGLOBAL</span> <span class='op'>=</span> <span class='ident'>GlobalAlloc</span>(<span class='ident'>ghnd</span>, <span class='ident'>len</span> <span class='kw'>as</span> <span class='ident'>SIZE_T</span>);
         <span class='kw'>let</span> <span class='ident'>lock</span> <span class='op'>=</span> <span class='ident'>GlobalLock</span>(<span class='ident'>handler</span>) <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>u16</span>;
 
+        <span class='kw'>let</span> <span class='ident'>len</span>: <span class='ident'>usize</span> <span class='op'>=</span> (<span class='ident'>len</span> <span class='op'>-</span> <span class='number'>1</span>) <span class='op'>/</span> <span class='number'>2</span>;
                                       <span class='comment'>//src,         dest, len</span>
         <span class='ident'>std</span>::<span class='ident'>ptr</span>::<span class='ident'>copy_nonoverlapping</span>(<span class='ident'>utf16_buff</span>.<span class='ident'>as_ptr</span>(), <span class='ident'>lock</span>, <span class='ident'>len</span>);
-        <span class='ident'>std</span>::<span class='ident'>ptr</span>::<span class='ident'>write_bytes</span>(<span class='ident'>lock</span>.<span class='ident'>offset</span>((<span class='ident'>len</span>) <span class='kw'>as</span> <span class='ident'>isize</span>), <span class='number'>0</span>, <span class='number'>2</span>);
+        <span class='kw'>let</span> <span class='ident'>len</span>: <span class='ident'>isize</span> <span class='op'>=</span> <span class='ident'>len</span> <span class='kw'>as</span> <span class='ident'>isize</span>;
+        <span class='op'>*</span><span class='ident'>lock</span>.<span class='ident'>offset</span>(<span class='ident'>len</span>) <span class='op'>=</span> <span class='number'>0</span>;
 
         <span class='ident'>GlobalUnlock</span>(<span class='ident'>handler</span>);
 
         <span class='comment'>//Set new clipboard text.</span>
-        <span class='ident'>EmptyClipboard</span>();
         <span class='ident'>OpenClipboard</span>(<span class='ident'>std</span>::<span class='ident'>ptr</span>::<span class='ident'>null_mut</span>());
+        <span class='ident'>EmptyClipboard</span>();
         <span class='ident'>SetClipboardData</span>(<span class='ident'>format</span>, <span class='ident'>handler</span>);
         <span class='ident'>CloseClipboard</span>();
     }
@@ -183,9 +181,9 @@
 <span class='doccomment'>///</span>
 <span class='doccomment'>///* ```buff_p``` Must be valid non-NULL pointer.</span>
 <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>rust_strlen</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>PartialEq</span> <span class='op'>+</span> <span class='ident'>num</span>::<span class='ident'>traits</span>::<span class='ident'>Zero</span><span class='op'>&gt;</span>(<span class='ident'>buff_p</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>T</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span> {
+<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>rust_strlen</span>(<span class='ident'>buff_p</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u16</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span> {
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>idx</span>: <span class='ident'>isize</span> <span class='op'>=</span> <span class='number'>0</span>;
-    <span class='kw'>while</span> <span class='op'>*</span><span class='ident'>buff_p</span>.<span class='ident'>offset</span>(<span class='ident'>idx</span>) <span class='op'>!=</span> <span class='ident'>zero</span>() { <span class='ident'>idx</span> <span class='op'>+=</span> <span class='number'>1</span>; }
+    <span class='kw'>while</span> <span class='op'>*</span><span class='ident'>buff_p</span>.<span class='ident'>offset</span>(<span class='ident'>idx</span>) <span class='op'>!=</span> <span class='number'>0</span> { <span class='ident'>idx</span> <span class='op'>+=</span> <span class='number'>1</span>; }
     <span class='ident'>idx</span> <span class='kw'>as</span> <span class='ident'>usize</span>
 }
 
