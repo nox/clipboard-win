@@ -158,6 +158,19 @@
 <span id="116">116</span>
 <span id="117">117</span>
 <span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Clipboard WIN API</span>
 <span class='doccomment'>//!</span>
@@ -190,7 +203,20 @@
 <span class='kw'>use</span> <span class='ident'>winapi</span>::<span class='ident'>basetsd</span>::<span class='ident'>SIZE_T</span>;
 <span class='comment'>//functions</span>
 <span class='kw'>use</span> <span class='ident'>kernel32</span>::{<span class='ident'>GlobalAlloc</span>, <span class='ident'>GlobalLock</span>, <span class='ident'>GlobalUnlock</span>, <span class='ident'>GetLastError</span>};
-<span class='kw'>use</span> <span class='ident'>user32</span>::{<span class='ident'>SetClipboardData</span>, <span class='ident'>EmptyClipboard</span>, <span class='ident'>OpenClipboard</span>, <span class='ident'>GetClipboardData</span>, <span class='ident'>CloseClipboard</span>};
+<span class='kw'>use</span> <span class='ident'>user32</span>::{<span class='ident'>GetClipboardSequenceNumber</span>, <span class='ident'>SetClipboardData</span>, <span class='ident'>EmptyClipboard</span>, <span class='ident'>OpenClipboard</span>, <span class='ident'>GetClipboardData</span>, <span class='ident'>CloseClipboard</span>};
+
+<span class='doccomment'>///GetClipboardSequenceNumber wrapper.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>///Return result:</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>///* ```Some``` Upon successful retrieval of sequence number.</span>
+<span class='doccomment'>///* ```None``` In case if you do not have access.</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_clipboard_seq_num</span>() <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span> {
+    <span class='kw'>let</span> <span class='ident'>result</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>GetClipboardSequenceNumber</span>() };
+    <span class='kw'>if</span> <span class='ident'>result</span> <span class='op'>==</span> <span class='number'>0</span> { <span class='kw'>return</span> <span class='prelude-val'>None</span>; }
+
+    <span class='prelude-val'>Some</span>(<span class='ident'>result</span>)
+}
 
 <span class='doccomment'>///Set clipboard with text.</span>
 <span class='doccomment'>///</span>

@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["get_clipboard","Extracts clipboard content and convert it to String."],["rust_strlen","Rust variant of strlen."],["set_clipboard","Set clipboard with text."]]});
+initSidebarItems({"fn":[["get_clipboard","Extracts clipboard content and convert it to String."],["get_clipboard_seq_num","GetClipboardSequenceNumber wrapper."],["rust_strlen","Rust variant of strlen."],["set_clipboard","Set clipboard with text."]]});
