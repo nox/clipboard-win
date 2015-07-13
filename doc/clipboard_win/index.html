@@ -45,7 +45,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-0' class='srclink' href='../src/clipboard_win/lib.rs.html#1-131' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-0' class='srclink' href='../src/clipboard_win/lib.rs.html#1-200' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Clipboard WIN API</p>
 
 <p>This crate provide simple means to operate with Windows clipboard.</p>
@@ -61,7 +61,21 @@
     <span class='ident'>set_clipboard</span>(<span class='string'>&quot;for my waifu!&quot;</span>).<span class='ident'>unwrap</span>();
 }
 </pre>
-</div><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.ClipboardManager.html'
+                               title='clipboard_win::ClipboardManager'>ClipboardManager</a></td>
+                        <td class='docblock short'>
+                             <p>Clipboard manager provides a primitive hack for console application to handle updates of
+clipboard. It uses <code>get_clipboard_seq_num</code> to determines whatever clipboard is updated or
+not. Due to that this manager is a bit hacky and not exactly right way to properly work with
+clipboard. On other hand it is the best and most easy option for console application as a proper
+window is required to be created to work with clipboard.</p>
+
+                        </td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
 <table>
                     <tr class=' module-item'>
                         <td><a class='fn' href='fn.get_clipboard.html'
@@ -76,7 +90,7 @@
                         <td><a class='fn' href='fn.get_clipboard_seq_num.html'
                                title='clipboard_win::get_clipboard_seq_num'>get_clipboard_seq_num</a></td>
                         <td class='docblock short'>
-                             <p>GetClipboardSequenceNumber wrapper.</p>
+                             <p>Wrapper around <code>GetClipboardSequenceNumber</code>.</p>
 
                         </td>
                     </tr>
