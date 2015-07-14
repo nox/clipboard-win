@@ -45,8 +45,8 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-0' class='srclink' href='../src/clipboard_win/lib.rs.html#1-263' title='goto source code'>[src]</a></span></h1>
-<div class='docblock'><p>Clipboard WIN API</p>
+        </span><a id='src-0' class='srclink' href='../src/clipboard_win/lib.rs.html#1-312' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>Clipboard WinAPI</p>
 
 <p>This crate provide simple means to operate with Windows clipboard.</p>
 
@@ -61,7 +61,17 @@
     <span class='ident'>set_clipboard</span>(<span class='string'>&quot;for my waifu!&quot;</span>).<span class='ident'>unwrap</span>();
 }
 </pre>
-</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='wrapper/index.html'
+                               title='clipboard_win::wrapper'>wrapper</a></td>
+                        <td class='docblock short'>
+                             <p>Provides direct wrappers to WinAPI functions.</p>
+
+                        </td>
+                    </tr>
+                </table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                     <tr class=' module-item'>
                         <td><a class='struct' href='struct.ClipboardManager.html'
@@ -72,6 +82,15 @@ clipboard. It uses <code>get_clipboard_seq_num</code> to determines whatever cli
 not. Due to that this manager is a bit hacky and not exactly right way to properly work with
 clipboard. On other hand it is the best and most easy option for console application as a proper
 window is required to be created to work with clipboard.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.WinResult.html'
+                               title='clipboard_win::WinResult'>WinResult</a></td>
+                        <td class='docblock short'>
+                             <p>Represents Windows result.</p>
 
                         </td>
                     </tr>
@@ -91,15 +110,6 @@ window is required to be created to work with clipboard.</p>
                                title='clipboard_win::get_clipboard_formats'>get_clipboard_formats</a></td>
                         <td class='docblock short'>
                              <p>Extracts available clipboard formats.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.get_clipboard_seq_num.html'
-                               title='clipboard_win::get_clipboard_seq_num'>get_clipboard_seq_num</a></td>
-                        <td class='docblock short'>
-                             <p>Wrapper around <code>GetClipboardSequenceNumber</code>.</p>
 
                         </td>
                     </tr>
