@@ -401,7 +401,7 @@
 
     <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
     <span class='doccomment'>///Returns ```true``` if result is not ok</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_not_ok</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_err</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
         <span class='op'>!</span><span class='self'>self</span>.<span class='ident'>is_ok</span>()
     }
 
