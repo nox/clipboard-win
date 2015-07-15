@@ -45,7 +45,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-608' class='srclink' href='../src/clipboard_win/lib.rs.html#101-105' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-715' class='srclink' href='../src/clipboard_win/lib.rs.html#112-116' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct ClipboardManager {
     // some fields omitted
 }</pre><div class='docblock'><p>Clipboard manager provides a primitive hack for console application to handle updates of
@@ -59,10 +59,10 @@ window is required to be created to work with clipboard.</p>
 <div class='docblock'><p>Configure manager&#39;s delay between accessing clipboard.</p>
 </div><h4 id='method.ok_callback' class='method'><code>fn <a href='#method.ok_callback' class='fnname'>ok_callback</a>(&amp;mut self, callback: fn(&amp;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>)) -&gt; &amp;mut <a class='struct' href='../clipboard_win/struct.ClipboardManager.html' title='clipboard_win::ClipboardManager'>ClipboardManager</a></code></h4>
 <div class='docblock'><p>Sets callback for successfully retrieved clipboard&#39;s text.</p>
-</div><h4 id='method.err_callback' class='method'><code>fn <a href='#method.err_callback' class='fnname'>err_callback</a>(&amp;mut self, callback: fn(&amp;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>)) -&gt; &amp;mut <a class='struct' href='../clipboard_win/struct.ClipboardManager.html' title='clipboard_win::ClipboardManager'>ClipboardManager</a></code></h4>
+</div><h4 id='method.err_callback' class='method'><code>fn <a href='#method.err_callback' class='fnname'>err_callback</a>(&amp;mut self, callback: fn(&amp;<a class='struct' href='../clipboard_win/struct.WinResult.html' title='clipboard_win::WinResult'>WinResult</a>)) -&gt; &amp;mut <a class='struct' href='../clipboard_win/struct.ClipboardManager.html' title='clipboard_win::ClipboardManager'>ClipboardManager</a></code></h4>
 <div class='docblock'><p>Sets callback for failed retrieval of clipboard&#39;s text.</p>
 
-<p>Error description is passed from <code>get_clipboard()</code></p>
+<p>Error code is passed from <code>get_clipboard_string()</code></p>
 </div><h4 id='method.run' class='method'><code>fn <a href='#method.run' class='fnname'>run</a>(&amp;self)</code></h4>
 <div class='docblock'><p>Starts manager loop.</p>
 

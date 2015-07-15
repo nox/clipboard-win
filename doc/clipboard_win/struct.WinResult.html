@@ -45,12 +45,11 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-415' class='srclink' href='../src/clipboard_win/lib.rs.html#40-42' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct WinResult {
-    // some fields omitted
-}</pre><div class='docblock'><p>Represents Windows result.</p>
+        </span><a id='src-489' class='srclink' href='../src/clipboard_win/lib.rs.html#43' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct WinResult(_);</pre><div class='docblock'><p>Represents Windows result.</p>
 </div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../clipboard_win/struct.WinResult.html' title='clipboard_win::WinResult'>WinResult</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(errno: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a class='struct' href='../clipboard_win/struct.WinResult.html' title='clipboard_win::WinResult'>WinResult</a></code></h4>
-<div class='docblock'><p>Constructs new error.</p>
+<div class='docblock'><p>Custom errors
+Constructs new error.</p>
 </div><h4 id='method.is_ok' class='method'><code>fn <a href='#method.is_ok' class='fnname'>is_ok</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
 <div class='docblock'><p>Returns <code>true</code> if result is ok</p>
 </div><h4 id='method.is_not_ok' class='method'><code>fn <a href='#method.is_not_ok' class='fnname'>is_not_ok</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>

@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `get_clipboard_seq_num` fn in crate `clipboard_win`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, get_clipboard_seq_num">
+    <meta name="description" content="API documentation for the Rust `get_format_name` fn in crate `clipboard_win`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, get_format_name">
 
-    <title>clipboard_win::wrapper::get_clipboard_seq_num - Rust</title>
+    <title>clipboard_win::wrapper::get_format_name - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
@@ -26,7 +26,7 @@
 
     <section class="sidebar">
         
-        <p class='location'><a href='../index.html'>clipboard_win</a>::<wbr><a href='index.html'>wrapper</a></p><script>window.sidebarCurrent = {name: 'get_clipboard_seq_num', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'><a href='../index.html'>clipboard_win</a>::<wbr><a href='index.html'>wrapper</a></p><script>window.sidebarCurrent = {name: 'get_format_name', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </section>
 
     <nav class="sub">
@@ -41,18 +41,22 @@
     </nav>
 
     <section id='main' class="content fn">
-<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>clipboard_win</a>::<wbr><a href='index.html'>wrapper</a>::<wbr><a class='fn' href=''>get_clipboard_seq_num</a></span><span class='out-of-band'><span id='render-detail'>
+<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>clipboard_win</a>::<wbr><a href='index.html'>wrapper</a>::<wbr><a class='fn' href=''>get_format_name</a></span><span class='out-of-band'><span id='render-detail'>
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-57' class='srclink' href='../../src/clipboard_win/wrapper.rs.html#34-39' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>pub fn get_clipboard_seq_num() -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</pre><div class='docblock'><p>Wrapper around <code>GetClipboardSequenceNumber</code>.</p>
+        </span><a id='src-426' class='srclink' href='../../src/clipboard_win/wrapper.rs.html#177-193' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>pub fn get_format_name(format: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</pre><div class='docblock'><p>Returns format name based on it&#39;s code.</p>
+
+<h1 id="note:" class='section-header'><a
+                           href="#note:">Note:</a></h1>
+<p>It is not possible to retrieve name of predefined clipboard format.</p>
 
 <h1 id="return-result:" class='section-header'><a
                            href="#return-result:">Return result:</a></h1>
 <ul>
-<li><code>Some</code> Contains return value of <code>GetClipboardSequenceNumber</code>.</li>
-<li><code>None</code> In case if you do not have access. It means that zero is returned by system.</li>
+<li><code>Some</code> String which contains the format&#39;s name.</li>
+<li><code>None</code> If format name is incorrect or predefined.</li>
 </ul>
 </div></section>
     <section id='search' class="content hidden"></section>
