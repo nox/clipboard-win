@@ -229,15 +229,11 @@
 <span id="187">187</span>
 <span id="188">188</span>
 <span id="189">189</span>
-<span id="190">190</span>
-<span id="191">191</span>
-<span id="192">192</span>
-<span id="193">193</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//!Provides direct wrappers to WinAPI functions.</span>
 <span class='doccomment'>//!</span>
-<span class='doccomment'>//!These functions omit calls to ```OpenClipboard``` and ```CloseClipboard``` to be more like</span>
-<span class='doccomment'>//!wrappers. Due to that it is important that these function will be called upon need.</span>
+<span class='doccomment'>//!These functions omit calls to ```OpenClipboard``` and ```CloseClipboard```.</span>
+<span class='doccomment'>//!Due to that it is important that these function will be called by following requirements.</span>
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>user32</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>kernel32</span>;
@@ -368,7 +364,7 @@
             <span class='kw'>let</span> <span class='ident'>len</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='ident'>rust_strlen</span>(<span class='ident'>text_p</span>);
             <span class='kw'>let</span> <span class='ident'>text_s</span> <span class='op'>=</span> <span class='ident'>std</span>::<span class='ident'>slice</span>::<span class='ident'>from_raw_parts</span>(<span class='ident'>text_p</span>, <span class='ident'>len</span>);
 
-            <span class='ident'>result</span> <span class='op'>=</span> <span class='ident'>String</span>::<span class='ident'>from_utf16</span>(<span class='ident'>text_s</span>).<span class='ident'>map_err</span>(<span class='op'>|</span> _ <span class='op'>|</span> <span class='ident'>WinResult</span>(<span class='ident'>super</span>::<span class='ident'>UTF16_PARSE_ERROR</span>));
+            <span class='ident'>result</span> <span class='op'>=</span> <span class='prelude-val'>Ok</span>(<span class='ident'>String</span>::<span class='ident'>from_utf16_lossy</span>(<span class='ident'>text_s</span>));
             <span class='ident'>GlobalUnlock</span>(<span class='ident'>text_handler</span>);
         }
     }
@@ -380,7 +376,7 @@
 <span class='doccomment'>///# Return result:</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>///* ```Ok``` Vector of available formats.</span>
-<span class='doccomment'>///* ```Err``` Error description.</span>
+<span class='doccomment'>///* ```Err``` Contains ```WinResult```.</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_clipboard_formats</span>() <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span>, <span class='ident'>WinResult</span><span class='op'>&gt;</span> {
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>result</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[];
     <span class='kw'>unsafe</span> {
@@ -421,11 +417,7 @@
 
     }
 
-    <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Ok</span>(<span class='ident'>format_name</span>) <span class='op'>=</span> <span class='ident'>String</span>::<span class='ident'>from_utf16</span>(<span class='kw-2'>&amp;</span><span class='ident'>format_buff</span>) {
-        <span class='kw'>return</span> <span class='prelude-val'>Some</span>(<span class='ident'>format_name</span>);
-    }
-
-    <span class='prelude-val'>None</span>
+    <span class='prelude-val'>Some</span>(<span class='ident'>String</span>::<span class='ident'>from_utf16_lossy</span>(<span class='kw-2'>&amp;</span><span class='ident'>format_buff</span>))
 }
 </pre>
 </section>
