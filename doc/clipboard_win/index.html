@@ -45,7 +45,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-0' class='srclink' href='../src/clipboard_win/lib.rs.html#1-237' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-0' class='srclink' href='../src/clipboard_win/lib.rs.html#1-230' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Clipboard WinAPI</p>
 
 <p>This crate provide simple means to operate with Windows clipboard.</p>
@@ -87,10 +87,10 @@ window is required to be created to work with clipboard.</p>
                     </tr>
                 
                     <tr class=' module-item'>
-                        <td><a class='struct' href='struct.WinResult.html'
-                               title='clipboard_win::WinResult'>WinResult</a></td>
+                        <td><a class='struct' href='struct.WindowsError.html'
+                               title='clipboard_win::WindowsError'>WindowsError</a></td>
                         <td class='docblock short'>
-                             <p>Represents Windows result.</p>
+                             <p>Represents Windows error code.</p>
 
                         </td>
                     </tr>
@@ -100,7 +100,7 @@ window is required to be created to work with clipboard.</p>
                         <td><a class='fn' href='fn.get_clipboard.html'
                                title='clipboard_win::get_clipboard'>get_clipboard</a></td>
                         <td class='docblock short'>
-                             <p>Extracts clipboard content and convert it to String.</p>
+                             <p>Retrieves clipboard content.</p>
 
                         </td>
                     </tr>
@@ -118,7 +118,7 @@ window is required to be created to work with clipboard.</p>
                         <td><a class='fn' href='fn.get_clipboard_string.html'
                                title='clipboard_win::get_clipboard_string'>get_clipboard_string</a></td>
                         <td class='docblock short'>
-                             <p>Extracts clipboard content in UTF16 and convert it to String.</p>
+                             <p>Retrieves clipboard content in UTF16 format and convert it to String.</p>
 
                         </td>
                     </tr>
@@ -128,15 +128,6 @@ window is required to be created to work with clipboard.</p>
                                title='clipboard_win::get_format_name'>get_format_name</a></td>
                         <td class='docblock short'>
                              <p>Returns format name based on it&#39;s code.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.rust_strlen.html'
-                               title='clipboard_win::rust_strlen'>rust_strlen</a></td>
-                        <td class='docblock short'>
-                             <p>Rust variant of strlen.</p>
 
                         </td>
                     </tr>

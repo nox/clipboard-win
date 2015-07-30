@@ -45,14 +45,14 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-357' class='srclink' href='../../src/clipboard_win/wrapper.rs.html#170-188' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>pub fn get_clipboard_formats() -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;, <a class='struct' href='../../clipboard_win/struct.WinResult.html' title='clipboard_win::WinResult'>WinResult</a>&gt;</pre><div class='docblock'><p>Extracts available clipboard formats.</p>
+        </span><a id='src-655' class='srclink' href='../../src/clipboard_win/wrapper.rs.html#246-264' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>pub fn get_clipboard_formats() -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;, <a class='struct' href='../../clipboard_win/struct.WindowsError.html' title='clipboard_win::WindowsError'>WindowsError</a>&gt;</pre><div class='docblock'><p>Extracts available clipboard formats.</p>
 
 <h1 id="return-result:" class='section-header'><a
                            href="#return-result:">Return result:</a></h1>
 <ul>
 <li><code>Ok</code> Vector of available formats.</li>
-<li><code>Err</code> Contains <code>WinResult</code>.</li>
+<li><code>Err</code> Contains <code>WindowsError</code>.</li>
 </ul>
 </div></section>
     <section id='search' class="content hidden"></section>

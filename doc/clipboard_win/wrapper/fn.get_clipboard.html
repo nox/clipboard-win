@@ -45,10 +45,10 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-279' class='srclink' href='../../src/clipboard_win/wrapper.rs.html#146-163' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>pub fn get_clipboard(format: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a class='struct' href='../../clipboard_win/struct.WinResult.html' title='clipboard_win::WinResult'>WinResult</a>&gt;</pre><div class='docblock'><p>Wrapper around <code>GetClipboardData</code>.</p>
+        </span><a id='src-541' class='srclink' href='../../src/clipboard_win/wrapper.rs.html#219-238' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>pub fn get_clipboard(format: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;, <a class='struct' href='../../clipboard_win/struct.WindowsError.html' title='clipboard_win::WindowsError'>WindowsError</a>&gt;</pre><div class='docblock'><p>Wrapper around <code>GetClipboardData</code>.</p>
 
-<p>This function MUST be called prior to successful call of <code>open_clipboard</code>.</p>
+<p>This function MUST be called after a successful call of <code>open_clipboard</code>.</p>
 
 <h1 id="parameters:" class='section-header'><a
                            href="#parameters:">Parameters:</a></h1>
@@ -59,8 +59,8 @@
 <h1 id="return-result:" class='section-header'><a
                            href="#return-result:">Return result:</a></h1>
 <ul>
-<li><code>Ok</code> Content of clipboard which is stored in <code>String</code>.</li>
-<li><code>Err</code> Contains <code>WinResult</code>.</li>
+<li><code>Ok</code> Contains buffer with raw data.</li>
+<li><code>Err</code> Contains <code>WindowsError</code>.</li>
 </ul>
 </div></section>
     <section id='search' class="content hidden"></section>

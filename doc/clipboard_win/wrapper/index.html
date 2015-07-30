@@ -45,7 +45,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-9' class='srclink' href='../../src/clipboard_win/wrapper.rs.html#1-215' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-9' class='srclink' href='../../src/clipboard_win/wrapper.rs.html#1-333' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Provides direct wrappers to WinAPI functions.</p>
 
 <p>These functions omit calls to <code>OpenClipboard</code> and <code>CloseClipboard</code>.
@@ -57,6 +57,15 @@ Due to that most functions have requirements for them to be called.</p>
                                title='clipboard_win::wrapper::close_clipboard'>close_clipboard</a></td>
                         <td class='docblock short'>
                              <p>Wrapper around <code>CloseClipboard</code>.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.count_formats.html'
+                               title='clipboard_win::wrapper::count_formats'>count_formats</a></td>
+                        <td class='docblock short'>
+                             <p>Retrieves number of currently available formats on clipboard.</p>
 
                         </td>
                     </tr>
@@ -116,6 +125,15 @@ Due to that most functions have requirements for them to be called.</p>
                     </tr>
                 
                     <tr class=' module-item'>
+                        <td><a class='fn' href='fn.is_format_avail.html'
+                               title='clipboard_win::wrapper::is_format_avail'>is_format_avail</a></td>
+                        <td class='docblock short'>
+                             <p>Determines whatever provided clipboard format is available or not.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
                         <td><a class='fn' href='fn.open_clipboard.html'
                                title='clipboard_win::wrapper::open_clipboard'>open_clipboard</a></td>
                         <td class='docblock short'>
@@ -125,10 +143,28 @@ Due to that most functions have requirements for them to be called.</p>
                     </tr>
                 
                     <tr class=' module-item'>
+                        <td><a class='fn' href='fn.register_format.html'
+                               title='clipboard_win::wrapper::register_format'>register_format</a></td>
+                        <td class='docblock short'>
+                             <p>Registers a new clipboard format with specified name.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
                         <td><a class='fn' href='fn.set_clipboard.html'
                                title='clipboard_win::wrapper::set_clipboard'>set_clipboard</a></td>
                         <td class='docblock short'>
-                             <p>Wrapper around <code>SetClipboardData</code>.</p>
+                             <p>Wrapper around <code>SetClipboardData</code> to set unicode text.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.set_clipboard_raw.html'
+                               title='clipboard_win::wrapper::set_clipboard_raw'>set_clipboard_raw</a></td>
+                        <td class='docblock short'>
+                             <p>Wrapper around <code>SetClipboardData</code> to set raw data.</p>
 
                         </td>
                     </tr>
