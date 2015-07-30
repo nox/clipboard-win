@@ -385,7 +385,6 @@
 <span class='comment'>//WinAPI</span>
 <span class='comment'>//types</span>
 <span class='kw'>use</span> <span class='ident'>winapi</span>::<span class='ident'>minwindef</span>::{<span class='ident'>HGLOBAL</span>, <span class='ident'>UINT</span>};
-<span class='kw'>use</span> <span class='ident'>winapi</span>::<span class='ident'>wchar_t</span>; <span class='comment'>//u16</span>
 <span class='kw'>use</span> <span class='ident'>winapi</span>::<span class='ident'>winnt</span>::<span class='ident'>HANDLE</span>;
 <span class='kw'>use</span> <span class='ident'>winapi</span>::<span class='ident'>basetsd</span>::<span class='ident'>SIZE_T</span>;
 <span class='comment'>//functions</span>
@@ -524,7 +523,7 @@
     <span class='kw'>let</span> <span class='ident'>ghnd</span>: <span class='ident'>UINT</span> <span class='op'>=</span> <span class='number'>66</span>;
     <span class='kw'>unsafe</span> {
         <span class='comment'>//allocate buffer and copy string to it.</span>
-        <span class='kw'>let</span> <span class='ident'>len</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='ident'>data</span>.<span class='ident'>len</span>();
+        <span class='kw'>let</span> <span class='ident'>len</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='ident'>data</span>.<span class='ident'>len</span>() <span class='op'>+</span> <span class='number'>1</span>;
         <span class='kw'>let</span> <span class='ident'>handler</span>: <span class='ident'>HGLOBAL</span> <span class='op'>=</span> <span class='ident'>GlobalAlloc</span>(<span class='ident'>ghnd</span>, <span class='ident'>len</span> <span class='kw'>as</span> <span class='ident'>SIZE_T</span>);
         <span class='kw'>if</span> <span class='ident'>handler</span>.<span class='ident'>is_null</span>() {
             <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>WindowsError</span>(<span class='ident'>GetLastError</span>()));
@@ -532,6 +531,7 @@
         <span class='kw'>else</span> {
             <span class='kw'>let</span> <span class='ident'>lock</span> <span class='op'>=</span> <span class='ident'>GlobalLock</span>(<span class='ident'>handler</span>) <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>u8</span>;
 
+            <span class='kw'>let</span> <span class='ident'>len</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='ident'>len</span> <span class='op'>-</span> <span class='number'>1</span>;
                                           <span class='comment'>//src,         dest, len</span>
             <span class='ident'>std</span>::<span class='ident'>ptr</span>::<span class='ident'>copy_nonoverlapping</span>(<span class='ident'>data</span>.<span class='ident'>as_ptr</span>(), <span class='ident'>lock</span>, <span class='ident'>len</span>);
             <span class='kw'>let</span> <span class='ident'>len</span>: <span class='ident'>isize</span> <span class='op'>=</span> <span class='ident'>len</span> <span class='kw'>as</span> <span class='ident'>isize</span>;
