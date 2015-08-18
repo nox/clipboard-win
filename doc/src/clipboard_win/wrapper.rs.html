@@ -397,6 +397,7 @@
 
 <span class='comment'>//clipboard_win</span>
 <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>WindowsError</span>;
+<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>clipboard_formats</span>::<span class='op'>*</span>;
 
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>return_err</span> {
     () <span class='op'>=&gt;</span> { <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>WindowsError</span>(<span class='kw'>unsafe</span> { <span class='ident'>GetLastError</span>() })); }
@@ -477,7 +478,6 @@
 <span class='doccomment'>///</span>
 <span class='doccomment'>///This function MUST be called after a successful call of ```open_clipboard```.</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_clipboard</span><span class='op'>&lt;</span><span class='ident'>T</span>: ?<span class='ident'>Sized</span> <span class='op'>+</span> <span class='ident'>AsRef</span><span class='op'>&lt;</span><span class='ident'>std</span>::<span class='ident'>ffi</span>::<span class='ident'>OsStr</span><span class='op'>&gt;&gt;</span>(<span class='ident'>text</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>WindowsError</span><span class='op'>&gt;</span> {
-    <span class='kw'>const</span> <span class='ident'>FORMAT</span>: <span class='ident'>UINT</span> <span class='op'>=</span> <span class='number'>13</span>; <span class='comment'>//unicode</span>
     <span class='kw'>const</span> <span class='ident'>FLAG_GHND</span>: <span class='ident'>UINT</span> <span class='op'>=</span> <span class='number'>66</span>;
     <span class='kw'>let</span> <span class='ident'>text</span> <span class='op'>=</span> <span class='ident'>text</span>.<span class='ident'>as_ref</span>();
     <span class='kw'>unsafe</span> {
@@ -501,7 +501,7 @@
 
             <span class='comment'>//Set new clipboard text.</span>
             <span class='ident'>EmptyClipboard</span>();
-            <span class='kw'>if</span> <span class='ident'>SetClipboardData</span>(<span class='ident'>FORMAT</span>, <span class='ident'>handler</span>).<span class='ident'>is_null</span>() {
+            <span class='kw'>if</span> <span class='ident'>SetClipboardData</span>(<span class='ident'>CF_UNICODETEXT</span>, <span class='ident'>handler</span>).<span class='ident'>is_null</span>() {
                 <span class='kw'>let</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='prelude-val'>Err</span>(<span class='ident'>WindowsError</span>(<span class='ident'>GetLastError</span>()));
                 <span class='ident'>GlobalFree</span>(<span class='ident'>handler</span>);
                 <span class='kw'>return</span> <span class='ident'>result</span>;
@@ -551,7 +551,6 @@
     <span class='prelude-val'>Ok</span>(())
 }
 
-<span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
 <span class='doccomment'>///Wrapper around ```GetClipboardData``` with hardcoded UTF16 format.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>///This function MUST be called after a successful call of ```open_clipboard```.</span>
@@ -666,8 +665,8 @@
     <span class='prelude-val'>Some</span>(<span class='ident'>String</span>::<span class='ident'>from_utf16_lossy</span>(<span class='kw-2'>&amp;</span><span class='ident'>format_buff</span>))
 }
 
-<span class='attribute'>#[<span class='ident'>inline</span>]</span>
-<span class='doccomment'>///Determines whatever provided clipboard format is available or not.</span>
+<span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
+<span class='doccomment'>///Determines whatever provided clipboard format is available on clipboard or not.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>///# Return result:</span>
 <span class='doccomment'>///</span>
@@ -677,6 +676,7 @@
     <span class='kw'>unsafe</span> { <span class='ident'>IsClipboardFormatAvailable</span>(<span class='ident'>format</span>) <span class='op'>!=</span> <span class='number'>0</span> }
 }
 
+<span class='attribute'>#[<span class='ident'>inline</span>]</span>
 <span class='doccomment'>///Retrieves number of currently available formats on clipboard.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>///# Return result:</span>

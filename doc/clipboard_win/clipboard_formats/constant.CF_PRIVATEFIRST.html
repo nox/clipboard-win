@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `empty_clipboard` fn in crate `clipboard_win`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, empty_clipboard">
+    <meta name="description" content="API documentation for the Rust `CF_PRIVATEFIRST` constant in crate `clipboard_win`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, CF_PRIVATEFIRST">
 
-    <title>clipboard_win::wrapper::empty_clipboard - Rust</title>
+    <title>clipboard_win::clipboard_formats::CF_PRIVATEFIRST - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
@@ -26,7 +26,7 @@
 
     <section class="sidebar">
         
-        <p class='location'><a href='../index.html'>clipboard_win</a>::<wbr><a href='index.html'>wrapper</a></p><script>window.sidebarCurrent = {name: 'empty_clipboard', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'><a href='../index.html'>clipboard_win</a>::<wbr><a href='index.html'>clipboard_formats</a></p><script>window.sidebarCurrent = {name: 'CF_PRIVATEFIRST', ty: 'constant', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </section>
 
     <nav class="sub">
@@ -40,15 +40,13 @@
         </form>
     </nav>
 
-    <section id='main' class="content fn">
-<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>clipboard_win</a>::<wbr><a href='index.html'>wrapper</a>::<wbr><a class='fn' href=''>empty_clipboard</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content constant">
+<h1 class='fqn'><span class='in-band'><a href='../index.html'>clipboard_win</a>::<wbr><a href='index.html'>clipboard_formats</a>::<wbr><a class='constant' href=''>CF_PRIVATEFIRST</a></span><span class='out-of-band'><span id='render-detail'>
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-285' class='srclink' href='../../src/clipboard_win/wrapper.rs.html#91-99' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>pub fn empty_clipboard() -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='../../clipboard_win/struct.WindowsError.html' title='clipboard_win::WindowsError'>WindowsError</a>&gt;</pre><div class='docblock'><p>Wrapper around <code>EmptyClipboard</code>.</p>
-
-<p>This function MUST be called after a successful call of <code>open_clipboard</code>.</p>
+        </span><a id='src-93' class='srclink' href='../../src/clipboard_win/clipboard_formats.rs.html#58' title='goto source code'>[src]</a></span></h1>
+<pre class='rust const'>pub const CF_PRIVATEFIRST: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a><code> = </code><code>0x0200</code></pre><div class='docblock'><p>Start of a range of integer values for private clipboard formats.</p>
 </div></section>
     <section id='search' class="content hidden"></section>
 

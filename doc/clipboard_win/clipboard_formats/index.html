@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `clipboard_formats` mod in crate `clipboard_win`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, clipboard_formats">
+
+    <title>clipboard_win::clipboard_formats - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>clipboard_win</a></p><script>window.sidebarCurrent = {name: 'clipboard_formats', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>clipboard_win</a>::<wbr><a class='mod' href=''>clipboard_formats</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-37' class='srclink' href='../../src/clipboard_win/clipboard_formats.rs.html#1-72' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>Standart clipboard formats.</p>
+
+<p>Header: Winuser.h</p>
+
+<p>Description is taken from <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff729168%28v=vs.85%29.aspx">Standart Clipboard Formats</a></p>
+</div><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_BITMAP.html'
+                               title='clipboard_win::clipboard_formats::CF_BITMAP'>CF_BITMAP</a></td>
+                        <td class='docblock short'>
+                             <p>A handle to a bitmap (HBITMAP).</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_DIB.html'
+                               title='clipboard_win::clipboard_formats::CF_DIB'>CF_DIB</a></td>
+                        <td class='docblock short'>
+                             <p>A memory object containing a <b>BITMAPINFO</b> structure followed by the bitmap bits.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_DIBV5.html'
+                               title='clipboard_win::clipboard_formats::CF_DIBV5'>CF_DIBV5</a></td>
+                        <td class='docblock short'>
+                             <p>A memory object containing a <b>BITMAPV5HEADER</b> structure followed by the bitmap color space
+information and the bitmap bits.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_DIF.html'
+                               title='clipboard_win::clipboard_formats::CF_DIF'>CF_DIF</a></td>
+                        <td class='docblock short'>
+                             <p>Software Arts&#39; Data Interchange Format.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_DSPBITMAP.html'
+                               title='clipboard_win::clipboard_formats::CF_DSPBITMAP'>CF_DSPBITMAP</a></td>
+                        <td class='docblock short'>
+                             <p>Bitmap display format associated with a private format. The hMem parameter must be a handle to
+data that can be displayed in bitmap format in lieu of the privately formatted data.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_DSPENHMETAFILE.html'
+                               title='clipboard_win::clipboard_formats::CF_DSPENHMETAFILE'>CF_DSPENHMETAFILE</a></td>
+                        <td class='docblock short'>
+                             <p>Enhanced metafile display format associated with a private format. The <em>hMem</em> parameter must be a
+handle to data that can be displayed in enhanced metafile format in lieu of the privately
+formatted data.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_DSPMETAFILEPICT.html'
+                               title='clipboard_win::clipboard_formats::CF_DSPMETAFILEPICT'>CF_DSPMETAFILEPICT</a></td>
+                        <td class='docblock short'>
+                             <p>Metafile-picture display format associated with a private format. The hMem parameter must be a
+handle to data that can be displayed in metafile-picture format in lieu of the privately
+formatted data.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_DSPTEXT.html'
+                               title='clipboard_win::clipboard_formats::CF_DSPTEXT'>CF_DSPTEXT</a></td>
+                        <td class='docblock short'>
+                             <p>Text display format associated with a private format. The <em>hMem</em> parameter must be a handle to
+data that can be displayed in text format in lieu of the privately formatted data.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_ENHMETAFILE.html'
+                               title='clipboard_win::clipboard_formats::CF_ENHMETAFILE'>CF_ENHMETAFILE</a></td>
+                        <td class='docblock short'>
+                             <p>A handle to an enhanced metafile (<b>HENHMETAFILE</b>).</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_GDIOBJFIRST.html'
+                               title='clipboard_win::clipboard_formats::CF_GDIOBJFIRST'>CF_GDIOBJFIRST</a></td>
+                        <td class='docblock short'>
+                             <p>Start of a range of integer values for application-defined GDI object clipboard formats.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_GDIOBJLAST.html'
+                               title='clipboard_win::clipboard_formats::CF_GDIOBJLAST'>CF_GDIOBJLAST</a></td>
+                        <td class='docblock short'>
+                             <p>End of a range of integer values for application-defined GDI object clipboard formats.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_HDROP.html'
+                               title='clipboard_win::clipboard_formats::CF_HDROP'>CF_HDROP</a></td>
+                        <td class='docblock short'>
+                             <p>A handle to type <b>HDROP</b> that identifies a list of files.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_LOCALE.html'
+                               title='clipboard_win::clipboard_formats::CF_LOCALE'>CF_LOCALE</a></td>
+                        <td class='docblock short'>
+                             <p>The data is a handle to the locale identifier associated with text in the clipboard.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_METAFILEPICT.html'
+                               title='clipboard_win::clipboard_formats::CF_METAFILEPICT'>CF_METAFILEPICT</a></td>
+                        <td class='docblock short'>
+                             <p>Handle to a metafile picture format as defined by the <b>METAFILEPICT</b> structure.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_OEMTEXT.html'
+                               title='clipboard_win::clipboard_formats::CF_OEMTEXT'>CF_OEMTEXT</a></td>
+                        <td class='docblock short'>
+                             <p>Text format containing characters in the OEM character set.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_OWNERDISPLAY.html'
+                               title='clipboard_win::clipboard_formats::CF_OWNERDISPLAY'>CF_OWNERDISPLAY</a></td>
+                        <td class='docblock short'>
+                             <p>Owner-display format.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_PALETTE.html'
+                               title='clipboard_win::clipboard_formats::CF_PALETTE'>CF_PALETTE</a></td>
+                        <td class='docblock short'>
+                             <p>Handle to a color palette.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_PENDATA.html'
+                               title='clipboard_win::clipboard_formats::CF_PENDATA'>CF_PENDATA</a></td>
+                        <td class='docblock short'>
+                             <p>Data for the pen extensions to the Microsoft Windows for Pen Computing.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_PRIVATEFIRST.html'
+                               title='clipboard_win::clipboard_formats::CF_PRIVATEFIRST'>CF_PRIVATEFIRST</a></td>
+                        <td class='docblock short'>
+                             <p>Start of a range of integer values for private clipboard formats.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_PRIVATELAST.html'
+                               title='clipboard_win::clipboard_formats::CF_PRIVATELAST'>CF_PRIVATELAST</a></td>
+                        <td class='docblock short'>
+                             <p>End of a range of integer values for private clipboard formats.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_RIFF.html'
+                               title='clipboard_win::clipboard_formats::CF_RIFF'>CF_RIFF</a></td>
+                        <td class='docblock short'>
+                             <p>Represents audio data more complex than can be represented in a <code>CF_WAVE</code> standard wave format.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_SYLK.html'
+                               title='clipboard_win::clipboard_formats::CF_SYLK'>CF_SYLK</a></td>
+                        <td class='docblock short'>
+                             <p>Microsoft Symbolic Link (SYLK) format.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_TEXT.html'
+                               title='clipboard_win::clipboard_formats::CF_TEXT'>CF_TEXT</a></td>
+                        <td class='docblock short'>
+                             <p>ANSI text format.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_TIFF.html'
+                               title='clipboard_win::clipboard_formats::CF_TIFF'>CF_TIFF</a></td>
+                        <td class='docblock short'>
+                             <p>Tagged-image file format.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_UNICODETEXT.html'
+                               title='clipboard_win::clipboard_formats::CF_UNICODETEXT'>CF_UNICODETEXT</a></td>
+                        <td class='docblock short'>
+                             <p>UTF16 text format.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='constant' href='constant.CF_WAVE.html'
+                               title='clipboard_win::clipboard_formats::CF_WAVE'>CF_WAVE</a></td>
+                        <td class='docblock short'>
+                             <p>Represents audio data in one of the standard wave formats.</p>
+
+                        </td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+            <p>
+                Search functions by type signature (e.g.
+                <code>vec -> usize</code>)
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "clipboard_win";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

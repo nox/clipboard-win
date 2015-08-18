@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="Source to the Rust file `src\clipboard_formats.rs`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang">
+
+    <title>clipboard_formats.rs.html -- source</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
+<span id="2"> 2</span>
+<span id="3"> 3</span>
+<span id="4"> 4</span>
+<span id="5"> 5</span>
+<span id="6"> 6</span>
+<span id="7"> 7</span>
+<span id="8"> 8</span>
+<span id="9"> 9</span>
+<span id="10">10</span>
+<span id="11">11</span>
+<span id="12">12</span>
+<span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+</pre><pre class='rust '>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>dead_code</span>)]</span>
+<span class='doccomment'>//! Standart clipboard formats.</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! Header: Winuser.h</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! Description is taken from [Standart Clipboard Formats](https://msdn.microsoft.com/en-us/library/windows/desktop/ff729168%28v=vs.85%29.aspx)</span>
+
+<span class='doccomment'>///A handle to a bitmap (HBITMAP).</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_BITMAP</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>2</span>;
+<span class='doccomment'>///A memory object containing a &lt;b&gt;BITMAPINFO&lt;/b&gt; structure followed by the bitmap bits.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_DIB</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>8</span>;
+<span class='doccomment'>///A memory object containing a &lt;b&gt;BITMAPV5HEADER&lt;/b&gt; structure followed by the bitmap color space</span>
+<span class='doccomment'>///information and the bitmap bits.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_DIBV5</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>17</span>;
+<span class='doccomment'>///Software Arts&#39; Data Interchange Format.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_DIF</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>5</span>;
+<span class='doccomment'>///Bitmap display format associated with a private format. The hMem parameter must be a handle to</span>
+<span class='doccomment'>///data that can be displayed in bitmap format in lieu of the privately formatted data.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_DSPBITMAP</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0x0082</span>;
+<span class='doccomment'>///Enhanced metafile display format associated with a private format. The *hMem* parameter must be a</span>
+<span class='doccomment'>///handle to data that can be displayed in enhanced metafile format in lieu of the privately</span>
+<span class='doccomment'>///formatted data.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_DSPENHMETAFILE</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0x008E</span>;
+<span class='doccomment'>///Metafile-picture display format associated with a private format. The hMem parameter must be a</span>
+<span class='doccomment'>///handle to data that can be displayed in metafile-picture format in lieu of the privately</span>
+<span class='doccomment'>///formatted data.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_DSPMETAFILEPICT</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0x0083</span>;
+<span class='doccomment'>///Text display format associated with a private format. The *hMem* parameter must be a handle to</span>
+<span class='doccomment'>///data that can be displayed in text format in lieu of the privately formatted data.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_DSPTEXT</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0x0081</span>;
+<span class='doccomment'>///A handle to an enhanced metafile (&lt;b&gt;HENHMETAFILE&lt;/b&gt;).</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_ENHMETAFILE</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>14</span>;
+<span class='doccomment'>///Start of a range of integer values for application-defined GDI object clipboard formats.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_GDIOBJFIRST</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0x0300</span>;
+<span class='doccomment'>///End of a range of integer values for application-defined GDI object clipboard formats.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_GDIOBJLAST</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0x03FF</span>;
+<span class='doccomment'>///A handle to type &lt;b&gt;HDROP&lt;/b&gt; that identifies a list of files.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_HDROP</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>15</span>;
+<span class='doccomment'>///The data is a handle to the locale identifier associated with text in the clipboard.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>///For details see [Standart Clipboard Formats](https://msdn.microsoft.com/en-us/library/windows/desktop/ff729168%28v=vs.85%29.aspx)</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_LOCALE</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>16</span>;
+<span class='doccomment'>///Handle to a metafile picture format as defined by the &lt;b&gt;METAFILEPICT&lt;/b&gt; structure.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_METAFILEPICT</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>3</span>;
+<span class='doccomment'>///Text format containing characters in the OEM character set.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_OEMTEXT</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>7</span>;
+<span class='doccomment'>///Owner-display format.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>///For details see [Standart Clipboard Formats](https://msdn.microsoft.com/en-us/library/windows/desktop/ff729168%28v=vs.85%29.aspx)</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_OWNERDISPLAY</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0x0080</span>;
+<span class='doccomment'>///Handle to a color palette.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>///For details see [Standart Clipboard Formats](https://msdn.microsoft.com/en-us/library/windows/desktop/ff729168%28v=vs.85%29.aspx)</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_PALETTE</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>9</span>;
+<span class='doccomment'>///Data for the pen extensions to the Microsoft Windows for Pen Computing.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_PENDATA</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>10</span>;
+<span class='doccomment'>///Start of a range of integer values for private clipboard formats.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_PRIVATEFIRST</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0x0200</span>;
+<span class='doccomment'>///End of a range of integer values for private clipboard formats.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_PRIVATELAST</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0x02FF</span>;
+<span class='doccomment'>///Represents audio data more complex than can be represented in a ```CF_WAVE``` standard wave format.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_RIFF</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>11</span>;
+<span class='doccomment'>///Microsoft Symbolic Link (SYLK) format.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_SYLK</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>4</span>;
+<span class='doccomment'>///ANSI text format.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_TEXT</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>1</span>;
+<span class='doccomment'>///Tagged-image file format.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_TIFF</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>6</span>;
+<span class='doccomment'>///UTF16 text format.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_UNICODETEXT</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>13</span>;
+<span class='doccomment'>///Represents audio data in one of the standard wave formats.</span>
+<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CF_WAVE</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>12</span>;
+</pre>
+</section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+            <p>
+                Search functions by type signature (e.g.
+                <code>vec -> usize</code>)
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "clipboard_win";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>
