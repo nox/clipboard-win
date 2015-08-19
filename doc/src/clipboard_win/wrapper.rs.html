@@ -372,7 +372,6 @@
 <span id="330">330</span>
 <span id="331">331</span>
 <span id="332">332</span>
-<span id="333">333</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//!Provides direct wrappers to WinAPI functions.</span>
 <span class='doccomment'>//!</span>
@@ -602,7 +601,6 @@
             <span class='kw'>let</span> <span class='ident'>text_p</span> <span class='op'>=</span> <span class='ident'>GlobalLock</span>(<span class='ident'>text_handler</span>) <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>;
             <span class='kw'>let</span> <span class='ident'>len</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='ident'>rust_strlen8</span>(<span class='ident'>text_p</span>);
             <span class='kw'>let</span> <span class='ident'>text_vec</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>std</span>::<span class='ident'>slice</span>::<span class='ident'>from_raw_parts</span>(<span class='ident'>text_p</span>, <span class='ident'>len</span>).<span class='ident'>to_vec</span>();
-            <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;get_clipboard: text_vec={:?}&quot;</span>, <span class='kw-2'>&amp;</span><span class='ident'>text_vec</span>);
 
             <span class='ident'>result</span> <span class='op'>=</span> <span class='prelude-val'>Ok</span>(<span class='ident'>text_vec</span>);
             <span class='ident'>GlobalUnlock</span>(<span class='ident'>text_handler</span>);
