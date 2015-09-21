@@ -34,7 +34,7 @@
             <div class="search-container">
                 <input class="search-input" name="search"
                        autocomplete="off"
-                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
                        type="search">
             </div>
         </form>
@@ -288,6 +288,37 @@
 <span id="246">246</span>
 <span id="247">247</span>
 <span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Clipboard WinAPI</span>
 <span class='doccomment'>//!</span>
@@ -344,9 +375,9 @@
     <span class='doccomment'>///Returns description of underlying error code.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>errno_desc</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span> {
         <span class='kw'>const</span> <span class='ident'>BUF_SIZE</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='number'>512</span>;
+        <span class='kw'>const</span> <span class='ident'>FMT_FLAGS</span>: <span class='ident'>DWORD</span> <span class='op'>=</span> <span class='ident'>FORMAT_MESSAGE_IGNORE_INSERTS</span> <span class='op'>|</span> <span class='ident'>FORMAT_MESSAGE_FROM_SYSTEM</span> <span class='op'>|</span> <span class='ident'>FORMAT_MESSAGE_ARGUMENT_ARRAY</span>;
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>format_buff</span>: [<span class='ident'>u16</span>; <span class='ident'>BUF_SIZE</span>] <span class='op'>=</span> [<span class='number'>0</span>; <span class='ident'>BUF_SIZE</span>];
-        <span class='kw'>let</span> <span class='ident'>fmt_flags</span>: <span class='ident'>DWORD</span> <span class='op'>=</span> <span class='ident'>FORMAT_MESSAGE_IGNORE_INSERTS</span> <span class='op'>|</span> <span class='ident'>FORMAT_MESSAGE_FROM_SYSTEM</span> <span class='op'>|</span> <span class='ident'>FORMAT_MESSAGE_ARGUMENT_ARRAY</span>;
-        <span class='kw'>let</span> <span class='ident'>num_chars</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>FormatMessageW</span>(<span class='ident'>fmt_flags</span>,
+        <span class='kw'>let</span> <span class='ident'>num_chars</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>FormatMessageW</span>(<span class='ident'>FMT_FLAGS</span>,
                                                      <span class='ident'>std</span>::<span class='ident'>ptr</span>::<span class='ident'>null</span>(), <span class='self'>self</span>.<span class='number'>0</span>,
                                                      <span class='number'>0</span>, <span class='ident'>format_buff</span>.<span class='ident'>as_mut_ptr</span>(),
                                                      <span class='ident'>BUF_SIZE</span> <span class='kw'>as</span> <span class='ident'>u32</span>, <span class='ident'>std</span>::<span class='ident'>ptr</span>::<span class='ident'>null_mut</span>()) };
@@ -390,6 +421,37 @@
         <span class='self'>self</span>.<span class='number'>0</span> <span class='op'>!=</span> <span class='ident'>right</span>.<span class='number'>0</span>
     }
 }
+
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>impl_traits</span>
+{
+    ($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>:<span class='ident'>ty</span>), <span class='op'>+</span>) <span class='op'>=&gt;</span> {
+        $(
+            <span class='kw'>impl</span> <span class='ident'>From</span><span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>WindowsError</span> {
+                <span class='kw'>fn</span> <span class='ident'>from</span>(<span class='ident'>num</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
+                    <span class='ident'>WindowsError</span>(<span class='ident'>num</span> <span class='kw'>as</span> <span class='ident'>u32</span>)
+                }
+            }
+
+            <span class='kw'>impl</span> <span class='ident'>Into</span><span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>WindowsError</span> {
+                <span class='kw'>fn</span> <span class='ident'>into</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span> {
+                    <span class='self'>self</span>.<span class='number'>0</span> <span class='kw'>as</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>
+                }
+            }
+
+            <span class='kw'>impl</span> <span class='ident'>PartialEq</span><span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>WindowsError</span> {
+                <span class='kw'>fn</span> <span class='ident'>eq</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>right</span>: <span class='kw-2'>&amp;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
+                    <span class='self'>self</span>.<span class='number'>0</span> <span class='op'>==</span> <span class='op'>*</span><span class='ident'>right</span> <span class='kw'>as</span> <span class='ident'>u32</span>
+                }
+
+                <span class='kw'>fn</span> <span class='ident'>ne</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>right</span>: <span class='kw-2'>&amp;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
+                    <span class='self'>self</span>.<span class='number'>0</span> <span class='op'>!=</span> <span class='op'>*</span><span class='ident'>right</span> <span class='kw'>as</span> <span class='ident'>u32</span>
+                }
+            }
+        )<span class='op'>+</span>
+    };
+}
+
+<span class='macro'>impl_traits</span><span class='macro'>!</span>(<span class='ident'>u32</span>, <span class='ident'>u16</span>, <span class='ident'>u8</span>, <span class='ident'>usize</span>, <span class='ident'>i32</span>, <span class='ident'>i16</span>, <span class='ident'>i8</span>, <span class='ident'>isize</span>);
 
 <span class='doccomment'>///Clipboard manager provides a primitive hack for console application to handle updates of</span>
 <span class='doccomment'>///clipboard. It uses ```get_clipboard_seq_num``` to determines whatever clipboard is updated or</span>
@@ -544,37 +606,44 @@
     <section class="footer"></section>
 
     <div id="help" class="hidden">
-        <div class="shortcuts">
-            <h1>Keyboard shortcuts</h1>
-            <dl>
-                <dt>?</dt>
-                <dd>Show this help dialog</dd>
-                <dt>S</dt>
-                <dd>Focus the search field</dd>
-                <dt>&larrb;</dt>
-                <dd>Move up in search results</dd>
-                <dt>&rarrb;</dt>
-                <dd>Move down in search results</dd>
-                <dt>&#9166;</dt>
-                <dd>Go to active search result</dd>
-            </dl>
-        </div>
-        <div class="infos">
-            <h1>Search tricks</h1>
-            <p>
-                Prefix searches with a type followed by a colon (e.g.
-                <code>fn:</code>) to restrict the search to a given type.
-            </p>
-            <p>
-                Accepted types are: <code>fn</code>, <code>mod</code>,
-                <code>struct</code>, <code>enum</code>,
-                <code>trait</code>, <code>typedef</code> (or
-                <code>tdef</code>).
-            </p>
-            <p>
-                Search functions by type signature (e.g.
-                <code>vec -> usize</code>)
-            </p>
+        <div>
+            <div class="shortcuts">
+                <h1>Keyboard Shortcuts</h1>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h1>Search Tricks</h1>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>typedef</code> (or
+                    <code>tdef</code>).
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
         </div>
     </div>
 
