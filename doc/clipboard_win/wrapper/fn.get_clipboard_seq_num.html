@@ -24,10 +24,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='../index.html'>clipboard_win</a>::<wbr><a href='index.html'>wrapper</a></p><script>window.sidebarCurrent = {name: 'get_clipboard_seq_num', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -46,23 +46,25 @@
                 [<span class='inner'>&#x2212;</span>]
             </a>
         </span><a id='src-206' class='srclink' href='../../src/clipboard_win/wrapper.rs.html#51-56' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>pub fn get_clipboard_seq_num() -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</pre><div class='docblock'><p>Wrapper around <code>GetClipboardSequenceNumber</code>.</p>
+<pre class='rust fn'>pub fn get_clipboard_seq_num() -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</pre><div class='docblock'><p>Wrapper around <code>GetClipboardSequenceNumber</code>.</p>
 
 <h1 id="return-result:" class='section-header'><a
                            href="#return-result:">Return result:</a></h1>
 <ul>
-<li><code>Some</code>`<code>Some</code>`<code>Some</code>`Some<code>Contains return value of</code>GetClipboardSequenceNumber```.</li>
-<li><code>None</code>`<code>None</code>`<code>None</code>`None``` In case if you do not have access. It means that zero is returned by system.</li>
+<li><code>Some</code> Contains return value of <code>GetClipboardSequenceNumber</code>.</li>
+<li><code>None</code> In case if you do not have access. It means that zero is returned by system.</li>
 </ul>
 </div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -79,7 +81,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -89,8 +91,8 @@
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>typedef</code> (or
-                    <code>tdef</code>).
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
                 </p>
 
                 <p>
@@ -99,7 +101,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 

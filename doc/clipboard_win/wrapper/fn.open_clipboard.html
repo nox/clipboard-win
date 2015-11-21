@@ -24,10 +24,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'><a href='../index.html'>clipboard_win</a>::<wbr><a href='index.html'>wrapper</a></p><script>window.sidebarCurrent = {name: 'open_clipboard', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -46,7 +46,7 @@
                 [<span class='inner'>&#x2212;</span>]
             </a>
         </span><a id='src-231' class='srclink' href='../../src/clipboard_win/wrapper.rs.html#63-71' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>pub fn open_clipboard() -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='../../clipboard_win/struct.WindowsError.html' title='clipboard_win::WindowsError'>WindowsError</a>&gt;</pre><div class='docblock'><p>Wrapper around <code>OpenClipboard</code>.</p>
+<pre class='rust fn'>pub fn open_clipboard() -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='../../clipboard_win/struct.WindowsError.html' title='clipboard_win::WindowsError'>WindowsError</a>&gt;</pre><div class='docblock'><p>Wrapper around <code>OpenClipboard</code>.</p>
 
 <p>This function MUST be called only once until the clipboard is closed again with
 <code>close_clipboard</code>.</p>
@@ -55,10 +55,12 @@
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -75,7 +77,7 @@
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -85,8 +87,8 @@
                 <p>
                     Accepted types are: <code>fn</code>, <code>mod</code>,
                     <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>typedef</code> (or
-                    <code>tdef</code>).
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
                 </p>
 
                 <p>
@@ -95,7 +97,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
