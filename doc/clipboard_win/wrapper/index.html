@@ -45,7 +45,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-117' class='srclink' href='../../src/clipboard_win/wrapper.rs.html#1-332' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-47' class='srclink' href='../../src/clipboard_win/wrapper.rs.html#1-343' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Provides direct wrappers to WinAPI functions.</p>
 
 <p>These functions omit calls to <code>OpenClipboard</code> and <code>CloseClipboard</code>.
@@ -120,6 +120,15 @@ Due to that most functions have requirements for them to be called.</p>
                                title='clipboard_win::wrapper::get_format_name'>get_format_name</a></td>
                         <td class='docblock short'>
                              <p>Returns format name based on it&#39;s code.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.get_last_error.html'
+                               title='clipboard_win::wrapper::get_last_error'>get_last_error</a></td>
+                        <td class='docblock short'>
+                             <p>Wrapper around <code>GetLastError</code>.</p>
 
                         </td>
                     </tr>

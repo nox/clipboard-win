@@ -372,6 +372,17 @@
 <span id="330">330</span>
 <span id="331">331</span>
 <span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//!Provides direct wrappers to WinAPI functions.</span>
 <span class='doccomment'>//!</span>
@@ -381,25 +392,27 @@
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>user32</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>kernel32</span>;
 
-<span class='comment'>//WinAPI</span>
-<span class='comment'>//types</span>
 <span class='kw'>use</span> <span class='ident'>winapi</span>::<span class='ident'>minwindef</span>::{<span class='ident'>HGLOBAL</span>, <span class='ident'>UINT</span>};
 <span class='kw'>use</span> <span class='ident'>winapi</span>::<span class='ident'>winnt</span>::<span class='ident'>HANDLE</span>;
 <span class='kw'>use</span> <span class='ident'>winapi</span>::<span class='ident'>basetsd</span>::<span class='ident'>SIZE_T</span>;
-<span class='comment'>//functions</span>
+
 <span class='kw'>use</span> <span class='ident'>kernel32</span>::{<span class='ident'>GlobalFree</span>, <span class='ident'>GlobalAlloc</span>, <span class='ident'>GlobalLock</span>, <span class='ident'>GlobalUnlock</span>, <span class='ident'>GetLastError</span>};
 <span class='kw'>use</span> <span class='ident'>user32</span>::{<span class='ident'>RegisterClipboardFormatW</span>, <span class='ident'>CountClipboardFormats</span>, <span class='ident'>IsClipboardFormatAvailable</span>, <span class='ident'>GetClipboardFormatNameW</span>, <span class='ident'>EnumClipboardFormats</span>, <span class='ident'>GetClipboardSequenceNumber</span>, <span class='ident'>SetClipboardData</span>, <span class='ident'>EmptyClipboard</span>, <span class='ident'>OpenClipboard</span>, <span class='ident'>GetClipboardData</span>, <span class='ident'>CloseClipboard</span>};
 
-<span class='comment'>//std</span>
 <span class='kw'>use</span> <span class='ident'>std</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>os</span>::<span class='ident'>windows</span>::<span class='ident'>ffi</span>::<span class='ident'>OsStrExt</span>;
 
-<span class='comment'>//clipboard_win</span>
 <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>WindowsError</span>;
 <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>clipboard_formats</span>::<span class='op'>*</span>;
 
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>return_err</span> {
-    () <span class='op'>=&gt;</span> { <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>WindowsError</span>(<span class='kw'>unsafe</span> { <span class='ident'>GetLastError</span>() })); }
+<span class='doccomment'>///Wrapper around ```GetLastError```.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>///# Return result:</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>///* ```WindowsError``` with last windows error</span>
+<span class='attribute'>#[<span class='ident'>inline</span>]</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_last_error</span>() <span class='op'>-&gt;</span> <span class='ident'>WindowsError</span> {
+    <span class='ident'>WindowsError</span>(<span class='kw'>unsafe</span> { <span class='ident'>GetLastError</span>() })
 }
 
 <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
@@ -425,7 +438,10 @@
 <span class='doccomment'>///* ```None``` In case if you do not have access. It means that zero is returned by system.</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_clipboard_seq_num</span>() <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span> {
     <span class='kw'>let</span> <span class='ident'>result</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>GetClipboardSequenceNumber</span>() };
-    <span class='kw'>if</span> <span class='ident'>result</span> <span class='op'>==</span> <span class='number'>0</span> { <span class='kw'>return</span> <span class='prelude-val'>None</span>; }
+
+    <span class='kw'>if</span> <span class='ident'>result</span> <span class='op'>==</span> <span class='number'>0</span> {
+        <span class='kw'>return</span> <span class='prelude-val'>None</span>;
+    }
 
     <span class='prelude-val'>Some</span>(<span class='ident'>result</span>)
 }
@@ -438,7 +454,7 @@
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>open_clipboard</span>() <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>WindowsError</span><span class='op'>&gt;</span> {
     <span class='kw'>unsafe</span> {
         <span class='kw'>if</span> <span class='ident'>OpenClipboard</span>(<span class='ident'>std</span>::<span class='ident'>ptr</span>::<span class='ident'>null_mut</span>()) <span class='op'>==</span> <span class='number'>0</span> {
-            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>WindowsError</span>(<span class='ident'>GetLastError</span>()));
+            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>get_last_error</span>());
         }
     }
 
@@ -452,7 +468,7 @@
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>close_clipboard</span>() <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>WindowsError</span><span class='op'>&gt;</span> {
     <span class='kw'>unsafe</span> {
         <span class='kw'>if</span> <span class='ident'>CloseClipboard</span>() <span class='op'>==</span> <span class='number'>0</span> {
-            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>WindowsError</span>(<span class='ident'>GetLastError</span>()));
+            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>get_last_error</span>());
         }
     }
 
@@ -466,7 +482,7 @@
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>empty_clipboard</span>() <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>WindowsError</span><span class='op'>&gt;</span> {
     <span class='kw'>unsafe</span> {
         <span class='kw'>if</span> <span class='ident'>EmptyClipboard</span>() <span class='op'>==</span> <span class='number'>0</span> {
-            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>WindowsError</span>(<span class='ident'>GetLastError</span>()));
+            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>get_last_error</span>());
         }
     }
 
@@ -485,7 +501,7 @@
         <span class='kw'>let</span> <span class='ident'>len</span>: <span class='ident'>usize</span> <span class='op'>=</span> (<span class='ident'>utf16_buff</span>.<span class='ident'>len</span>()<span class='op'>+</span><span class='number'>1</span>) <span class='op'>*</span> <span class='number'>2</span>;
         <span class='kw'>let</span> <span class='ident'>handler</span>: <span class='ident'>HGLOBAL</span> <span class='op'>=</span> <span class='ident'>GlobalAlloc</span>(<span class='ident'>FLAG_GHND</span>, <span class='ident'>len</span> <span class='kw'>as</span> <span class='ident'>SIZE_T</span>);
         <span class='kw'>if</span> <span class='ident'>handler</span>.<span class='ident'>is_null</span>() {
-            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>WindowsError</span>(<span class='ident'>GetLastError</span>()));
+            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>get_last_error</span>());
         }
         <span class='kw'>else</span> {
             <span class='kw'>let</span> <span class='ident'>lock</span> <span class='op'>=</span> <span class='ident'>GlobalLock</span>(<span class='ident'>handler</span>) <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>u16</span>;
@@ -493,15 +509,15 @@
             <span class='kw'>let</span> <span class='ident'>len</span>: <span class='ident'>usize</span> <span class='op'>=</span> (<span class='ident'>len</span> <span class='op'>-</span> <span class='number'>1</span>) <span class='op'>/</span> <span class='number'>2</span>;
                                           <span class='comment'>//src,               dest, len</span>
             <span class='ident'>std</span>::<span class='ident'>ptr</span>::<span class='ident'>copy_nonoverlapping</span>(<span class='ident'>utf16_buff</span>.<span class='ident'>as_ptr</span>(), <span class='ident'>lock</span>, <span class='ident'>len</span>);
-            <span class='kw'>let</span> <span class='ident'>len</span>: <span class='ident'>isize</span> <span class='op'>=</span> <span class='ident'>len</span> <span class='kw'>as</span> <span class='ident'>isize</span>;
-            <span class='op'>*</span><span class='ident'>lock</span>.<span class='ident'>offset</span>(<span class='ident'>len</span>) <span class='op'>=</span> <span class='number'>0</span>;
+            <span class='ident'>drop</span>(<span class='ident'>utf16_buff</span>);
+            <span class='op'>*</span><span class='ident'>lock</span>.<span class='ident'>offset</span>(<span class='ident'>len</span> <span class='kw'>as</span> <span class='ident'>isize</span>) <span class='op'>=</span> <span class='number'>0</span>;
 
             <span class='ident'>GlobalUnlock</span>(<span class='ident'>handler</span>);
 
             <span class='comment'>//Set new clipboard text.</span>
             <span class='ident'>EmptyClipboard</span>();
             <span class='kw'>if</span> <span class='ident'>SetClipboardData</span>(<span class='ident'>CF_UNICODETEXT</span>, <span class='ident'>handler</span>).<span class='ident'>is_null</span>() {
-                <span class='kw'>let</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='prelude-val'>Err</span>(<span class='ident'>WindowsError</span>(<span class='ident'>GetLastError</span>()));
+                <span class='kw'>let</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='prelude-val'>Err</span>(<span class='ident'>get_last_error</span>());
                 <span class='ident'>GlobalFree</span>(<span class='ident'>handler</span>);
                 <span class='kw'>return</span> <span class='ident'>result</span>;
             }
@@ -524,8 +540,9 @@
         <span class='comment'>//allocate buffer and copy string to it.</span>
         <span class='kw'>let</span> <span class='ident'>len</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='ident'>data</span>.<span class='ident'>len</span>() <span class='op'>+</span> <span class='number'>1</span>;
         <span class='kw'>let</span> <span class='ident'>handler</span>: <span class='ident'>HGLOBAL</span> <span class='op'>=</span> <span class='ident'>GlobalAlloc</span>(<span class='ident'>FLAG_GHND</span>, <span class='ident'>len</span> <span class='kw'>as</span> <span class='ident'>SIZE_T</span>);
+
         <span class='kw'>if</span> <span class='ident'>handler</span>.<span class='ident'>is_null</span>() {
-            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>WindowsError</span>(<span class='ident'>GetLastError</span>()));
+            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>get_last_error</span>());
         }
         <span class='kw'>else</span> {
             <span class='kw'>let</span> <span class='ident'>lock</span> <span class='op'>=</span> <span class='ident'>GlobalLock</span>(<span class='ident'>handler</span>) <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>u8</span>;
@@ -533,15 +550,14 @@
             <span class='kw'>let</span> <span class='ident'>len</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='ident'>len</span> <span class='op'>-</span> <span class='number'>1</span>;
                                           <span class='comment'>//src,         dest, len</span>
             <span class='ident'>std</span>::<span class='ident'>ptr</span>::<span class='ident'>copy_nonoverlapping</span>(<span class='ident'>data</span>.<span class='ident'>as_ptr</span>(), <span class='ident'>lock</span>, <span class='ident'>len</span>);
-            <span class='kw'>let</span> <span class='ident'>len</span>: <span class='ident'>isize</span> <span class='op'>=</span> <span class='ident'>len</span> <span class='kw'>as</span> <span class='ident'>isize</span>;
-            <span class='op'>*</span><span class='ident'>lock</span>.<span class='ident'>offset</span>(<span class='ident'>len</span>) <span class='op'>=</span> <span class='number'>0</span>;
+            <span class='op'>*</span><span class='ident'>lock</span>.<span class='ident'>offset</span>(<span class='ident'>len</span> <span class='kw'>as</span> <span class='ident'>isize</span>) <span class='op'>=</span> <span class='number'>0</span>;
 
             <span class='ident'>GlobalUnlock</span>(<span class='ident'>handler</span>);
 
             <span class='comment'>//Set new clipboard text.</span>
             <span class='ident'>EmptyClipboard</span>();
             <span class='kw'>if</span> <span class='ident'>SetClipboardData</span>(<span class='ident'>format</span>, <span class='ident'>handler</span>).<span class='ident'>is_null</span>() {
-                <span class='kw'>let</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='prelude-val'>Err</span>(<span class='ident'>WindowsError</span>(<span class='ident'>GetLastError</span>()));
+                <span class='kw'>let</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='prelude-val'>Err</span>(<span class='ident'>get_last_error</span>());
                 <span class='ident'>GlobalFree</span>(<span class='ident'>handler</span>);
                 <span class='kw'>return</span> <span class='ident'>result</span>;
             }
@@ -562,13 +578,13 @@
     <span class='kw'>let</span> <span class='ident'>result</span>: <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>WindowsError</span><span class='op'>&gt;</span>;
     <span class='kw'>unsafe</span> {
         <span class='kw'>let</span> <span class='ident'>text_handler</span>: <span class='ident'>HANDLE</span> <span class='op'>=</span> <span class='ident'>GetClipboardData</span>(<span class='ident'>CF_UNICODETEXT</span> <span class='kw'>as</span> <span class='ident'>u32</span>);
+
         <span class='kw'>if</span> <span class='ident'>text_handler</span>.<span class='ident'>is_null</span>() {
-            <span class='ident'>result</span> <span class='op'>=</span> <span class='prelude-val'>Err</span>(<span class='ident'>WindowsError</span>(<span class='ident'>GetLastError</span>()));
+            <span class='ident'>result</span> <span class='op'>=</span> <span class='prelude-val'>Err</span>(<span class='ident'>get_last_error</span>());
         }
         <span class='kw'>else</span> {
             <span class='kw'>let</span> <span class='ident'>text_p</span> <span class='op'>=</span> <span class='ident'>GlobalLock</span>(<span class='ident'>text_handler</span>) <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u16</span>;
-            <span class='kw'>let</span> <span class='ident'>len</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='ident'>rust_strlen16</span>(<span class='ident'>text_p</span>);
-            <span class='kw'>let</span> <span class='ident'>text_s</span> <span class='op'>=</span> <span class='ident'>std</span>::<span class='ident'>slice</span>::<span class='ident'>from_raw_parts</span>(<span class='ident'>text_p</span>, <span class='ident'>len</span>);
+            <span class='kw'>let</span> <span class='ident'>text_s</span> <span class='op'>=</span> <span class='ident'>std</span>::<span class='ident'>slice</span>::<span class='ident'>from_raw_parts</span>(<span class='ident'>text_p</span>, <span class='ident'>rust_strlen16</span>(<span class='ident'>text_p</span>));
 
             <span class='ident'>result</span> <span class='op'>=</span> <span class='prelude-val'>Ok</span>(<span class='ident'>String</span>::<span class='ident'>from_utf16_lossy</span>(<span class='ident'>text_s</span>));
             <span class='ident'>GlobalUnlock</span>(<span class='ident'>text_handler</span>);
@@ -594,13 +610,13 @@
     <span class='kw'>let</span> <span class='ident'>result</span>: <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;</span>, <span class='ident'>WindowsError</span><span class='op'>&gt;</span>;
     <span class='kw'>unsafe</span> {
         <span class='kw'>let</span> <span class='ident'>text_handler</span>: <span class='ident'>HANDLE</span> <span class='op'>=</span> <span class='ident'>GetClipboardData</span>(<span class='ident'>format</span> <span class='kw'>as</span> <span class='ident'>UINT</span>);
+
         <span class='kw'>if</span> <span class='ident'>text_handler</span>.<span class='ident'>is_null</span>() {
-            <span class='ident'>result</span> <span class='op'>=</span> <span class='prelude-val'>Err</span>(<span class='ident'>WindowsError</span>(<span class='ident'>GetLastError</span>()));
+            <span class='ident'>result</span> <span class='op'>=</span> <span class='prelude-val'>Err</span>(<span class='ident'>get_last_error</span>());
         }
         <span class='kw'>else</span> {
             <span class='kw'>let</span> <span class='ident'>text_p</span> <span class='op'>=</span> <span class='ident'>GlobalLock</span>(<span class='ident'>text_handler</span>) <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>;
-            <span class='kw'>let</span> <span class='ident'>len</span>: <span class='ident'>usize</span> <span class='op'>=</span> <span class='ident'>rust_strlen8</span>(<span class='ident'>text_p</span>);
-            <span class='kw'>let</span> <span class='ident'>text_vec</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>std</span>::<span class='ident'>slice</span>::<span class='ident'>from_raw_parts</span>(<span class='ident'>text_p</span>, <span class='ident'>len</span>).<span class='ident'>to_vec</span>();
+            <span class='kw'>let</span> <span class='ident'>text_vec</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>std</span>::<span class='ident'>slice</span>::<span class='ident'>from_raw_parts</span>(<span class='ident'>text_p</span>, <span class='ident'>rust_strlen8</span>(<span class='ident'>text_p</span>)).<span class='ident'>to_vec</span>();
 
             <span class='ident'>result</span> <span class='op'>=</span> <span class='prelude-val'>Ok</span>(<span class='ident'>text_vec</span>);
             <span class='ident'>GlobalUnlock</span>(<span class='ident'>text_handler</span>);
@@ -620,12 +636,12 @@
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>result</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[];
     <span class='kw'>unsafe</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>clip_format</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='ident'>EnumClipboardFormats</span>(<span class='number'>0</span>);
+
         <span class='kw'>while</span> <span class='ident'>clip_format</span> <span class='op'>!=</span> <span class='number'>0</span> {
             <span class='ident'>result</span>.<span class='ident'>push</span>(<span class='ident'>clip_format</span>);
             <span class='ident'>clip_format</span> <span class='op'>=</span> <span class='ident'>EnumClipboardFormats</span>(<span class='ident'>clip_format</span>);
         }
 
-        <span class='comment'>//Error check</span>
         <span class='kw'>let</span> <span class='ident'>error</span> <span class='op'>=</span> <span class='ident'>GetLastError</span>();
 
         <span class='kw'>if</span> <span class='ident'>error</span> <span class='op'>!=</span> <span class='number'>0</span> {
@@ -684,9 +700,12 @@
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>count_formats</span>() <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>i32</span>, <span class='ident'>WindowsError</span><span class='op'>&gt;</span> {
     <span class='kw'>let</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>CountClipboardFormats</span>() };
 
-    <span class='kw'>if</span> <span class='ident'>result</span> <span class='op'>==</span> <span class='number'>0</span> { <span class='macro'>return_err</span><span class='macro'>!</span>() }
-
-    <span class='prelude-val'>Ok</span>(<span class='ident'>result</span>)
+    <span class='kw'>if</span> <span class='ident'>result</span> <span class='op'>==</span> <span class='number'>0</span> {
+        <span class='prelude-val'>Err</span>(<span class='ident'>get_last_error</span>())
+    }
+    <span class='kw'>else</span> {
+        <span class='prelude-val'>Ok</span>(<span class='ident'>result</span>)
+    }
 }
 
 <span class='doccomment'>///Registers a new clipboard format with specified name.</span>
@@ -701,9 +720,12 @@
 
     <span class='kw'>let</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>RegisterClipboardFormatW</span>(<span class='ident'>utf16_buff</span>.<span class='ident'>as_ptr</span>()) };
 
-    <span class='kw'>if</span> <span class='ident'>result</span> <span class='op'>==</span> <span class='number'>0</span> { <span class='macro'>return_err</span><span class='macro'>!</span>() }
-
-    <span class='prelude-val'>Ok</span>(<span class='ident'>result</span>)
+    <span class='kw'>if</span> <span class='ident'>result</span> <span class='op'>==</span> <span class='number'>0</span> {
+        <span class='prelude-val'>Err</span>(<span class='ident'>get_last_error</span>())
+    }
+    <span class='kw'>else</span> {
+        <span class='prelude-val'>Ok</span>(<span class='ident'>result</span>)
+    }
 }
 </pre>
 </section>
