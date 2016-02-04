@@ -46,7 +46,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-0' class='srclink' href='../src/clipboard_win/lib.rs.html#1-226' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-0' class='srclink' href='../src/clipboard_win/lib.rs.html#1-215' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Clipboard WinAPI</p>
 
 <p>This crate provide simple means to operate with Windows clipboard.</p>
@@ -60,7 +60,8 @@
     <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;I set some clipboard text like a boss!&quot;</span>);
     <span class='ident'>set_clipboard</span>(<span class='string'>&quot;for my waifu!&quot;</span>);
 }</pre>
-</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+<table><tr><td><code>pub use wrapper::{<a class='fn' href='../clipboard_win/wrapper/fn.get_format_name.html' title='clipboard_win::wrapper::get_format_name'>get_format_name</a>, <a class='fn' href='../clipboard_win/wrapper/fn.count_formats.html' title='clipboard_win::wrapper::count_formats'>count_formats</a>, <a class='fn' href='../clipboard_win/wrapper/fn.register_format.html' title='clipboard_win::wrapper::register_format'>register_format</a>, <a class='fn' href='../clipboard_win/wrapper/fn.is_format_avail.html' title='clipboard_win::wrapper::is_format_avail'>is_format_avail</a>};</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                     <tr class=' module-item'>
                         <td><a class='mod' href='clipboard_formats/index.html'
@@ -114,15 +115,6 @@
                                title='clipboard_win::get_clipboard_string'>get_clipboard_string</a></td>
                         <td class='docblock short'>
                              <p>Retrieves clipboard content in UTF16 format and convert it to String.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.get_format_name.html'
-                               title='clipboard_win::get_format_name'>get_format_name</a></td>
-                        <td class='docblock short'>
-                             <p>Returns format name based on it&#39;s code.</p>
 
                         </td>
                     </tr>
